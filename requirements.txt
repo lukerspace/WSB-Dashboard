@@ -1,2 +1,9 @@
 tda-api
 selenium
+
+
+cd desktop
+cd software
+cd python
+cd tdameritrade-master
+python3 trade.py

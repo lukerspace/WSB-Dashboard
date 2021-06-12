@@ -6,11 +6,6 @@ TD Ameritrade API examples for obtaining fundamental data, option chains, and pl
 pip install tda-api
 pip install selenium
 ```
-
-## YouTube video tutorial at:
-
-https://youtube.com/parttimelarry
-
 ## Download ChromeDriver here:
 
 https://sites.google.com/a/chromium.org/chromedriver/home

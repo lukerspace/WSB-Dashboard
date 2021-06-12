@@ -1,8 +1,13 @@
 from tda import auth, client
-# from tda.orders import OrderBuilder, Duration, Session
+import tda
+from tda.orders.equities import *
+from tda.orders.common import Duration, Session
 import json
 import config
 import datetime
+from tda.orders.common import OrderType
+from tda.orders.generic import OrderBuilder
+
 
 # authenticate
 try:
@@ -12,26 +17,25 @@ except FileNotFoundError:
     with webdriver.Chrome(executable_path=config.chromedriver_path) as driver:
         c = auth.client_from_login_flow(
             driver, config.api_key, config.redirect_uri, config.token_path)
-print(json.dumps(c.get_quote("AAPL").json(),indent=4))
-response = c.search_instruments("AAPL", c.Instrument.Projection.FUNDAMENTAL)
-print(json.dumps(response.json(), indent=4))
+# print(json.dumps(c.get_quote("AAPL").json(),indent=4))
+# response = c.search_instruments("AAPL", c.Instrument.Projection.FUNDAMENTAL)
+# print(json.dumps(response.json(), indent=4))
 
-watchlist=["AMZN","AAPL","TSLA","MSFT","BA","AMD"]
+watchlist=["PLTR","AAPL","LRCX","BA","FB"]
 fundamental= c.search_instruments(watchlist, c.Instrument.Projection.FUNDAMENTAL)
 for name in watchlist:
     market=c.get_quote(name)
     marketInfo=market.json()
-    print("--------------")
+    print("-----")
     print(marketInfo[name]["symbol"],":",marketInfo[name]["mark"])
-    print("取得52周high:",
-        # response.json()[name]["fundamental"]["symbol"],
-        fundamental.json()[name]["fundamental"]["high52"]
-    )
-    print("取得peRatio",
-        # response.json()[name]["fundamental"]["symbol"],
-        fundamental.json()[name]["fundamental"]["peRatio"]
-    )
-    print("距離前高ratio:",marketInfo[name]["mark"]/fundamental.json()[name]["fundamental"]["high52"] )
+    # print("取得52周high:",fundamental.json()[name]["fundamental"]["high52"] )
+    print("peRatio",fundamental.json()[name]["fundamental"]["peRatio"])
+    # print("距離前高ratio:",marketInfo[name]["mark"]/fundamental.json()[name]["fundamental"]["high52"] )
+    order_limit = tda.orders.equities.equity_buy_limit(name, price=1,quantity=1)
+    # order_market=tda.orders.equities.equity_buy_market("MA",quantity=1)
+    r = c.place_order(config.account_id, order_limit)
+    if r : 
+        print("order filled : "+f'{name}')
 
 
 # # get option chain
@@ -61,9 +65,21 @@ for name in watchlist:
 
 
 # # limit order of 5 shares of redfin stock at 18 dollars a share
-# builder = EquityOrderBuilder('AAPL', 1)
-# builder.set_instruction(EquityOrderBuilder.Instruction.BUY)
-# builder.set_order_type(EquityOrderBuilder.OrderType.LIMIT)
+
+# stock="PLTR"
+# order_limit = tda.orders.equities.equity_buy_limit("PLTR", price=1,quantity=1)
+# # order_market=tda.orders.equities.equity_buy_market("MA",quantity=1)
+
+
+# r = c.place_order(config.account_id, order_limit)
+# if r : 
+#     print("order filled : "+f'{stock}')
+
+
+
+# builder = OrderBuilder
+# # builder.set_instruction(OrderBuilder.Instruction.BUY)
+# builder.set_order_type(OrderBuilder.orderType.LIMIT)
 # builder.set_price(18)
 
 # builder.set_duration(Duration.GOOD_TILL_CANCEL)
