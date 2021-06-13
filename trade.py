@@ -1,3 +1,5 @@
+# 執行order
+
 from tda import auth, client
 import tda
 from tda.orders.equities import *
@@ -21,21 +23,29 @@ except FileNotFoundError:
 # response = c.search_instruments("AAPL", c.Instrument.Projection.FUNDAMENTAL)
 # print(json.dumps(response.json(), indent=4))
 
-watchlist=["PLTR","AAPL","LRCX","BA","FB"]
+watchlist=["PLTR","GOLD"]
 fundamental= c.search_instruments(watchlist, c.Instrument.Projection.FUNDAMENTAL)
 for name in watchlist:
     market=c.get_quote(name)
     marketInfo=market.json()
-    print("-----")
+    print("---")
     print(marketInfo[name]["symbol"],":",marketInfo[name]["mark"])
-    # print("取得52周high:",fundamental.json()[name]["fundamental"]["high52"] )
-    print("peRatio",fundamental.json()[name]["fundamental"]["peRatio"])
-    # print("距離前高ratio:",marketInfo[name]["mark"]/fundamental.json()[name]["fundamental"]["high52"] )
     order_limit = tda.orders.equities.equity_buy_limit(name, price=1,quantity=1)
-    # order_market=tda.orders.equities.equity_buy_market("MA",quantity=1)
+    # order_market=tda.orders.equities.equity_buy_market(name,quantity=1)
     r = c.place_order(config.account_id, order_limit)
     if r : 
         print("order filled : "+f'{name}')
+
+
+    # print("取得52周high:",fundamental.json()[name]["fundamental"]["high52"] )
+    # print("peRatio",fundamental.json()[name]["fundamental"]["peRatio"])
+    # print("距離前高ratio:",marketInfo[name]["mark"]/fundamental.json()[name]["fundamental"]["high52"] )
+    # order_market=tda.orders.equities.equity_buy_market("MA",quantity=1)
+
+
+
+
+
 
 
 # # get option chain
