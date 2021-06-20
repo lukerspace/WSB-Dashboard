@@ -3,7 +3,5 @@ cd software
 cd python
 cd tdameritrade-master
 python3 trade.py 
-
 install tda-api
-
 insatall selenium
