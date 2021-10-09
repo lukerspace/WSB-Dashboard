@@ -12,6 +12,6 @@ streamlit run dash.py
 
 ## Image
 
-<img src="config/readme1.png">
-<img src="config/readme2.png">
-<img src="config/readme3.png">
+<img src="data/img/readme1.png"/>
+<img src="data/img/readme2.png"/>
+<img src="data/img/readme3.png"/>
