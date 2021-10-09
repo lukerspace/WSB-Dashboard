@@ -1,10 +1,11 @@
 from psaw import PushshiftAPI
-import config
 import datetime
 import psycopg2
 import psycopg2.extras
+import csv,sys
+sys.path.append("./config")
 import config
-import csv
+
 
 connection = psycopg2.connect(host=config.DB_HOST, database=config.DB_NAME, user=config.DB_USER, password=config.DB_PASS)
 cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)

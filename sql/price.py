@@ -1,8 +1,9 @@
-import config
-import json
+import json,sys
 import requests
 import datetime, time
-import aiohttp, asyncpg, asyncio
+import aiohttp, asyncpg , asyncio
+sys.path.append("./config")
+import config
 
 
 async def write_to_db(connection, params):
@@ -21,7 +22,6 @@ async def get_price(pool, stock_id, url):
 
     except Exception as e:
         print("Unable to get url {} due to {}.".format(url, e.__class__))
-
 
 async def get_prices(pool, symbol_urls):
     try:
