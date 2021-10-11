@@ -19,9 +19,6 @@ for row in rows:
 
 # # # CONNECT REDDICT TO GET THE METION DATA
 def wallstreetbet(Y,M,D):
-    # now=datetime.datetime.now().strftime("%Y%m%d")
-    # Y,M,D=int(now[0:4]),int(now[4:6]),int(now[6:8])
-    # print(Y,M,D)
     api = PushshiftAPI()
     mytime=datetime.datetime(Y,M,D)
 
@@ -46,4 +43,4 @@ def wallstreetbet(Y,M,D):
                         print(e)
                         connection.rollback()
 
-# wallstreetbet(2021,10,8)
+wallstreetbet(2021,10,8)

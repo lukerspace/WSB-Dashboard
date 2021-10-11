@@ -10,6 +10,9 @@ cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 cursor.execute("select * from stock")
 print(cursor.fetchall())
 
+
+#### ALPACA INSERT THE DATA TO THE DATABASE ####
+
 api = tradeapi.REST(config.API_KEY, config.API_SECRET, base_url=config.API_URL)
 assets = api.list_assets()
 for asset in assets:

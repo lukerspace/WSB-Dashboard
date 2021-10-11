@@ -35,5 +35,5 @@ def reddict_rate():
         dic["symbol"].append(symbol_list[i])
         dic["ratio"].append(ratio[i])
 
-    return print(dic)
+    return dic
 
